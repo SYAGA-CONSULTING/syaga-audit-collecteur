@@ -1,0 +1,42 @@
+{
+  "manifest_version": 3,
+  "name": "SYAGA Audit - Collecteur vérifiable",
+  "version": "0.0.4",
+  "description": "Collecte read-only la configuration Microsoft 365 et la pseudonymise sur votre poste. Seuls des jetons quittent votre navigateur.",
+  "permissions": [
+    "identity",
+    "storage",
+    "tabs",
+    "webRequest"
+  ],
+  "host_permissions": [
+    "https://login.microsoftonline.com/*",
+    "https://graph.microsoft.com/*",
+    "https://outlook.office365.com/*",
+    "https://ps.compliance.protection.outlook.com/*",
+    "https://*.ps.compliance.protection.outlook.com/*",
+    "https://*.admin.protection.outlook.com/*",
+    "https://api.interfaces.records.teams.microsoft.com/*",
+    "https://m365.audit.syaga.fr/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "SYAGA Audit",
+    "default_popup": "popup.html"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://login.microsoftonline.com https://graph.microsoft.com https://outlook.office365.com https://ps.compliance.protection.outlook.com https://*.ps.compliance.protection.outlook.com https://*.admin.protection.outlook.com https://*.admin.protection.outlook.com:446 https://api.interfaces.records.teams.microsoft.com https://m365.audit.syaga.fr"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApu2AFLS5ubP4AsfRFqFNvAqgMPaSiqPBezkbwG1YhXGGr55hTqPPKVKIQqALBi01ulBMP5IUTqfRQIwkFl+2Lnhu9XuTbdeDkMqkTFp+V0hE9xMKo4Pv/A8L1bALm8vTkzD3lxYn6Kj6nPjt4AUziZ546+mdKifWv9SML05wVBcQPzXF1w/NAFBXD/I8dgjAwDklqNQM5EyvIhfloR/R3SaABT4hU8Jc44ihBZSUQjBHX9XK1BAZbNFWIAfkV5YPfL4j4Uq8kJ49LaA0kluDomWiKNNW6I0A6PNnACgPRbsnrIWpMipubiFKLVLBuktgVuvRLbfU0sBmM3ngjeeWXQIDAQAB",
+  "externally_connectable": {
+    "matches": [
+      "https://m365.audit.syaga.fr/*",
+      "https://m365.audit.syaga.fr/*",
+      "https://m365.audit.syaga.fr/*",
+      "http://localhost/*"
+    ]
+  }
+}
