@@ -1,6 +1,6 @@
 # Fiche de soumission store (Chrome Web Store / Edge Add-ons)
 
-Paquet a uploader : `syaga-audit-collecteur-v0.0.4.zip` (les 11 fichiers livres).
+Paquet a uploader : `syaga-audit-collecteur-v0.0.4.zip` (les 15 fichiers (dont icones) livres).
 Compte editeur : ton compte developpeur (Chrome Web Store : ~5 USD une fois ; Edge Add-ons : gratuit).
 
 ## Nom (max 45 car.)

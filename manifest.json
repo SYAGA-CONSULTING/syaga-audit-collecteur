@@ -25,7 +25,13 @@
   },
   "action": {
     "default_title": "SYAGA Audit",
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
   },
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; connect-src https://login.microsoftonline.com https://graph.microsoft.com https://outlook.office365.com https://ps.compliance.protection.outlook.com https://*.ps.compliance.protection.outlook.com https://*.admin.protection.outlook.com https://*.admin.protection.outlook.com:446 https://api.interfaces.records.teams.microsoft.com https://m365.audit.syaga.fr"
@@ -38,5 +44,11 @@
       "https://m365.audit.syaga.fr/*",
       "http://localhost/*"
     ]
+  },
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
 }
