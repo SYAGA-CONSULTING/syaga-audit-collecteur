@@ -1,47 +1,49 @@
-# SYAGA Audit - Collecteur vérifiable
+# SYAGA Audit - Verifiable collector
 
-Ce dépôt contient **l'intégralité du code qui s'exécute sur votre poste** lorsque vous
-utilisez SYAGA Audit pour Microsoft 365. Il est public pour une seule raison : vous
-permettre de **vérifier par vous-même** qu'aucune de vos données ne nous est transmise.
+**Languages:** English (this file) &middot; [Français](README.fr.md)
 
-## Le principe : zéro-knowledge
+This repository contains **the entire code that runs on your own machine** when you use SYAGA
+Audit for Microsoft 365. It is public for one reason only: to let you **check for yourself**
+that none of your data is ever sent to us.
 
-1. L'extension lit la configuration de sécurité de votre tenant Microsoft 365, **en lecture seule**,
-   après votre consentement sur l'écran officiel Microsoft.
-2. Elle **pseudonymise sur votre poste** : vos noms, adresses e-mail et identifiants sont
-   remplacés par des jetons, **avant** tout envoi. La clé de pseudonymisation est générée
-   localement et ne sort jamais.
-3. Seuls ces **jetons** sont envoyés au service d'analyse. Vos données réelles ne quittent
-   jamais votre navigateur.
-4. Le rapport est **re-contextualisé localement** avec vos vrais libellés.
+## The principle: zero-knowledge
 
-Le mécanisme est **fail-closed** : par défaut tout est tokenisé ; seule une liste de valeurs
-de configuration Microsoft **publiques** (ex. `Enabled`, `ExternalUserAndGuestSharing`) reste
-en clair, car nécessaire à l'évaluation. Une valeur inconnue est tokenisée, jamais l'inverse.
+1. The extension reads your Microsoft 365 tenant security configuration, **read-only**, after
+   your consent on the official Microsoft screen.
+2. It **pseudonymizes on your machine**: your names, e-mail addresses and identifiers are
+   replaced by tokens **before** anything is sent. The pseudonymization key is generated
+   locally and never leaves your machine.
+3. Only those **tokens** are sent to the analysis service. Your real data never leaves your
+   browser.
+4. The report is **re-contextualized locally** with your real labels.
 
-## Comment vérifier
+The mechanism is **fail-closed**: by default everything is tokenized; only a list of **public**
+Microsoft configuration values (e.g. `Enabled`, `ExternalUserAndGuestSharing`) stays in clear,
+because it is required for the assessment. An unknown value is tokenized, never the other way around.
 
-- **`SHA256SUMS`** : l'empreinte de chacun des 11 fichiers livrés. Le code publié ici EST
-  le code qui s'exécute chez vous.
-- **`REPRODUCIBLE.md`** : comment reconstruire et recalculer ces empreintes.
-- **Point de sortie unique** : une seule destination réseau applicative (le service SYAGA Audit),
-  déclarée dans le `manifest.json` (`host_permissions` + CSP `connect-src`). Tout le reste est
+## How to verify
+
+- **`SHA256SUMS`**: the fingerprint of each of the 11 delivered files. The code published here
+  IS the code that runs on your machine.
+- **`REPRODUCIBLE.md`**: how to rebuild and recompute those fingerprints.
+- **Single egress point**: one single application network destination (the SYAGA Audit service),
+  declared in `manifest.json` (`host_permissions` + CSP `connect-src`). Everything else is
   Microsoft (graph.microsoft.com, outlook.office365.com, compliance).
-- **`pseudonymize.mjs` + `pseudo_whitelist.mjs`** : la frontière. Lisez `keepClear()` : c'est
-  la fonction qui décide, valeur par valeur, ce qui reste en clair (jamais une identité).
+- **`pseudonymize.mjs` + `pseudo_whitelist.mjs`**: the boundary. Read `keepClear()`: the function
+  that decides, value by value, what stays in clear (never an identity).
 
-## Ce qui n'est PAS ici
+## What is NOT here
 
-Le **catalogue de règles**, le **scoring** et le **moteur de rapport** vivent côté serveur et
-ne sont pas nécessaires pour vérifier la promesse de confidentialité : quoi que fasse le serveur,
-il ne reçoit que des jetons. C'est précisément ce que ce dépôt vous permet de contrôler.
+The **rule catalogue**, the **scoring** and the **report engine** live server-side and are not
+needed to verify the confidentiality promise: whatever the server does, it only ever receives
+tokens. That is exactly what this repository lets you check.
 
-## Les 11 fichiers
+## The 11 files
 
-`auth.js` · `auth-ok.html` · `background.js` · `collect.js` · `manifest.json` · `popup.html` ·
-`popup.js` · `pseudonymize.mjs` · `pseudo_whitelist.mjs` · `recontextualize.mjs` ·
+`auth.js` &middot; `auth-ok.html` &middot; `background.js` &middot; `collect.js` &middot; `manifest.json` &middot; `popup.html` &middot;
+`popup.js` &middot; `pseudonymize.mjs` &middot; `pseudo_whitelist.mjs` &middot; `recontextualize.mjs` &middot;
 `render_reproducible.mjs`
 
 ---
 
-© 2026 SYAGA CONSULTING. Code publié pour vérification et transparence.
+© 2026 SYAGA CONSULTING. Code published for verification and transparency.
