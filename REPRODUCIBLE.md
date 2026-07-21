@@ -1,37 +1,39 @@
-# Reproductibilité de l'extension SYAGA Audit - "le code qui tourne EST le code publié"
+# Reproducibility of the SYAGA Audit extension - "the code that runs IS the code published"
 
-## Le point fort : il n'y a RIEN à reconstruire
-L'extension est écrite en JavaScript LISIBLE, **non bundlé, non minifié, sans étape de build**. Le fichier
-livré dans le paquet est, octet pour octet, le fichier source de ce dépôt. La "reproductibilité" est donc
-triviale et maximale : on ne compare pas une source à un binaire minifié généré (le cas difficile habituel),
-on compare deux fichiers identiques. C'est le meilleur scénario de preuve possible.
+**Languages:** English (this file) &middot; [Français](REPRODUCIBLE.fr.md)
 
-C'est aussi pour ça qu'on reste en JS et pas en WebAssembly : un binaire WASM serait opaque et romprait
-cette égalité source == livré.
+## The key point: there is NOTHING to rebuild
+The extension is written in READABLE JavaScript, **unbundled, unminified, with no build step**. The file
+delivered in the package is, byte for byte, the source file in this repository. "Reproducibility" is therefore
+trivial and maximal: we do not compare a source to a generated minified binary (the usual hard case),
+we compare two identical files. It is the best possible proof scenario.
 
-## Ce que le client / l'auditeur peut vérifier LUI-MÊME
-1. Lire le code (5 fichiers, tout est ouvert) : manifest.json, background.js, auth.js, collect.js, pseudonymize.mjs.
-2. Recalculer les empreintes et comparer aux empreintes publiées :
+That is also why we stay in JS and not WebAssembly: a WASM binary would be opaque and would break
+this source == delivered equality.
+
+## What the client / auditor can verify THEMSELVES
+1. Read the code (5 files, everything is open): manifest.json, background.js, auth.js, collect.js, pseudonymize.mjs.
+2. Recompute the fingerprints and compare them to the published ones:
    ```bash
-   ./verify.sh        # ou : sha256sum -c SHA256SUMS
+   ./verify.sh        # or: sha256sum -c SHA256SUMS
    ```
-   Toutes les lignes doivent afficher OK. Une seule différence = le code livré n'est pas le code publié.
-3. Vérifier l'egress en live (onglet réseau) : seuls des jetons sortent (voir README.md).
+   Every line must show OK. A single difference = the delivered code is not the published code.
+3. Verify the egress live (network tab): only tokens leave (see README.md).
 
-## Empreintes (SHA-256) des fichiers LIVRÉS
-Voir `SHA256SUMS`. Régénérées à chaque version. Le client compare ce qu'il a reçu à ce hash.
+## Fingerprints (SHA-256) of the DELIVERED files
+See `SHA256SUMS`. Regenerated at each version. The client compares what they received against this hash.
 
-## Chaîne de preuve CONTINUE (à chaque version) - voir p0_research/repro_update_trust
-- Build (ici : copie verbatim) exécuté en CI PUBLIQUE -> attestation SLSA + signature keyless sigstore
-  (Fulcio) + entrée append-only dans le log de transparence Rekor. Vérifiable via `gh attestation verify`.
-- Le hash de CHAQUE version est publié à un endroit inviolable (Rekor) + en façade utilisateur façon
-  Code Verify -> une mise à jour malveillante ne peut pas passer en douce.
+## CONTINUOUS chain of proof (at each version) - see p0_research/repro_update_trust
+- Build (here: verbatim copy) run in PUBLIC CI -> SLSA attestation + keyless sigstore signature
+  (Fulcio) + append-only entry in the Rekor transparency log. Verifiable via `gh attestation verify`.
+- The hash of EACH version is published in a tamper-proof place (Rekor) + user-facing, Code Verify
+  style -> a malicious update cannot slip through unnoticed.
 
-## Limites honnêtes (preuve avant slogan)
-- **Firefox AMO** impose déjà la revue de source + le diff "no differences" par version : canal de preuve
-  fort. **Chrome Web Store ne vérifie AUCUNE source** -> sur Chrome on s'appuie uniquement sur ces
-  empreintes + l'attestation, et on le DIT.
-- Le store ré-emballe le paquet (`_metadata/`, signatures du store) -> le .zip/.xpi n'est pas byte-identique
-  à l'archive d'origine. On prouve l'égalité des FICHIERS JS exécutés (ce qui compte), pas de l'enveloppe.
-- SLSA/sigstore prouvent l'ORIGINE du build, pas l'absence de faille dans la source : la lecture du code
-  (rendue facile par l'absence de minification) reste nécessaire. C'est justement pour ça qu'on l'ouvre.
+## Honest limits (proof before slogan)
+- **Firefox AMO** already requires source review + the "no differences" diff per version: a strong proof
+  channel. **Chrome Web Store verifies NO source** -> on Chrome we rely solely on these fingerprints
+  + the attestation, and we SAY so.
+- The store re-packages the bundle (`_metadata/`, store signatures) -> the .zip/.xpi is not byte-identical
+  to the original archive. We prove the equality of the EXECUTED JS FILES (what matters), not the wrapper.
+- SLSA/sigstore prove the ORIGIN of the build, not the absence of a flaw in the source: reading the code
+  (made easy by the lack of minification) remains necessary. That is exactly why we open it.

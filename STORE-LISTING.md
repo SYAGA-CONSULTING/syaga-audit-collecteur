@@ -1,51 +1,53 @@
-# Fiche de soumission store (Chrome Web Store / Edge Add-ons)
+# Store submission sheet (Chrome Web Store / Edge Add-ons)
 
-Paquet à uploader : `syaga-audit-collecteur-v0.0.4.zip` (les 15 fichiers (dont icônes) livrés).
-Compte éditeur : ton compte développeur (Chrome Web Store : ~5 USD une fois ; Edge Add-ons : gratuit).
+**Languages:** English (this file) &middot; [Français](STORE-LISTING.fr.md)
 
-## Nom (max 45 car.)
-SYAGA Audit - Collecteur vérifiable
+Package to upload: `syaga-audit-collecteur-v0.0.4.zip` (the 15 delivered files, icons included).
+Publisher account: your developer account (Chrome Web Store: ~5 USD one-time; Edge Add-ons: free).
 
-## Résumé court (max 132 car.)
-Auditez la sécurité de votre Microsoft 365 sans jamais nous confier vos données : la collecte est pseudonymisée sur votre poste.
+## Name (max 45 chars)
+SYAGA Audit - Verifiable collector
 
-## Description détaillée
-SYAGA Audit évalue la configuration de sécurité de votre tenant Microsoft 365 (identité, messagerie, partage, appareils, conformité) et la croise avec NIS2, RGPD, DORA, CIS et MITRE.
+## Short summary (max 132 chars)
+Audit your Microsoft 365 security without ever entrusting us your data: collection is pseudonymized on your own machine.
 
-Sa particularité : le zero-knowledge. L'extension collecte votre configuration en LECTURE SEULE, la pseudonymise SUR VOTRE POSTE (vos noms, adresses et identifiants sont remplacés par des jetons), et n'envoie à SYAGA que ces jetons. Vos données réelles ne quittent jamais votre navigateur. Le rapport est re-contextualisé localement avec vos vrais libellés.
+## Detailed description
+SYAGA Audit assesses the security configuration of your Microsoft 365 tenant (identity, mail, sharing, devices, compliance) and cross-references it with NIS2, GDPR, DORA, CIS and MITRE.
 
-Vous n'avez pas à nous croire, tout est vérifiable :
-- Microsoft affiche à l'installation que l'accès est en lecture seule ; vous le révoquez d'un clic depuis votre console.
-- Le code de l'extension est lisible, non minifié, et son empreinte est publiée (le code qui tourne EST le code publié).
-- Un seul point de sortie réseau, avec un détecteur qui bloque l'envoi si une donnée en clair tentait de sortir (fail-closed).
+Its distinctive trait: zero-knowledge. The extension collects your configuration READ-ONLY, pseudonymizes it ON YOUR MACHINE (your names, addresses and identifiers are replaced by tokens), and sends SYAGA only those tokens. Your real data never leaves your browser. The report is re-contextualized locally with your real labels.
 
-Auditer votre sécurité ne doit pas créer un nouveau risque de sécurité.
+You do not have to trust us, everything is verifiable:
+- Microsoft shows at install time that access is read-only; you revoke it in one click from your console.
+- The extension code is readable, unminified, and its fingerprint is published (the code that runs IS the published code).
+- A single network egress point, with a detector that blocks the send if any clear data tried to leave (fail-closed).
 
-## Catégorie
-Outils pour développeurs (ou Productivité)
+Auditing your security must not create a new security risk.
 
-## Langue
-Français
+## Category
+Developer tools (or Productivity)
 
-## Politique de confidentialité (URL requise)
+## Language
+English
+
+## Privacy policy (URL required)
 https://m365.audit.syaga.fr/confidentialite.html
 
-## Objectif unique (single purpose)
-Collecter en lecture seule la configuration de sécurité Microsoft 365 de l'utilisateur, la pseudonymiser localement, et l'envoyer sous forme de jetons au service d'analyse SYAGA Audit.
+## Single purpose
+Collect read-only the user's Microsoft 365 security configuration, pseudonymize it locally, and send it as tokens to the SYAGA Audit analysis service.
 
-## Justification des permissions
-- identity : ouvrir la connexion Microsoft (OAuth) pour obtenir un accès LECTURE SEULE au tenant, après consentement explicite de l'utilisateur.
-- storage : conserver localement (chrome.storage.local) le jeton de session Exchange/Purview le temps du scan et la table de re-contextualisation ; rien n'est transmis à SYAGA.
-- tabs : ouvrir la page de retour d'authentification et le rapport.
-- webRequest : suivre le flux d'authentification Microsoft.
-- host_permissions : uniquement les API Microsoft (graph.microsoft.com, outlook.office365.com, compliance) et le service SYAGA Audit (m365.audit.syaga.fr) déclaré dans le CSP.
+## Permission justification
+- identity: open the Microsoft sign-in (OAuth) to obtain READ-ONLY access to the tenant, after the user's explicit consent.
+- storage: keep locally (chrome.storage.local) the Exchange/Purview session token for the duration of the scan and the re-contextualization table; nothing is sent to SYAGA.
+- tabs: open the authentication return page and the report.
+- webRequest: follow the Microsoft authentication flow.
+- host_permissions: only the Microsoft APIs (graph.microsoft.com, outlook.office365.com, compliance) and the SYAGA Audit service (m365.audit.syaga.fr) declared in the CSP.
 
-## À fournir par SQ (le store l'exige)
-- Captures d'écran (1280x800) : la popup, un scan, le score gratuit, le rapport.
-- Icône 128x128.
-- Compte éditeur vérifié.
+## To be provided by SQ (the store requires it)
+- Screenshots (1280x800): the popup, a scan, the free score, the report.
+- 128x128 icon.
+- Verified publisher account.
 
-## Étapes de soumission
-1. Chrome Web Store : https://chrome.google.com/webstore/devconsole -> Nouvel élément -> uploader le zip -> remplir avec ce fichier -> Soumettre pour revue.
-2. Edge Add-ons : https://partner.microsoft.com/dashboard/microsoftedge -> idem.
-Note : la revue store peut prendre quelques jours. L'ID d'extension reste stable (champ `key` du manifest) -> pas de re-câblage du site.
+## Submission steps
+1. Chrome Web Store: https://chrome.google.com/webstore/devconsole -> New item -> upload the zip -> fill in with this file -> Submit for review.
+2. Edge Add-ons: https://partner.microsoft.com/dashboard/microsoftedge -> same.
+Note: store review can take a few days. The extension ID stays stable (`key` field of the manifest) -> no site re-wiring.
