@@ -4,17 +4,20 @@
 
 Ce dépôt contient **l'intégralité du code qui s'exécute sur votre poste** lorsque vous
 utilisez SYAGA Audit pour Microsoft 365. Il est public pour une seule raison : vous
-permettre de **vérifier par vous-même** qu'aucune de vos données ne nous est transmise.
+permettre de **vérifier par vous-même** que seuls des jetons et les réglages de votre Microsoft 365 nous sont envoyés, jamais vos noms,
+adresses ou identifiants.
 
-## Le principe : zéro-knowledge
+**État :** SYAGA Audit, ouverture prochaine. Offre : https://syaga.eu/fr/audit/ ; vérification gratuite d'un domaine : https://syaga.eu/scan
+
+## Le principe : pseudonymisation sur votre poste
 
 1. L'extension lit la configuration de sécurité de votre tenant Microsoft 365, **en lecture seule**,
    après votre consentement sur l'écran officiel Microsoft.
 2. Elle **pseudonymise sur votre poste** : vos noms, adresses e-mail et identifiants sont
    remplacés par des jetons, **avant** tout envoi. La clé de pseudonymisation est générée
    localement et ne sort jamais.
-3. Seuls ces **jetons** sont envoyés au service d'analyse. Vos données réelles ne quittent
-   jamais votre navigateur.
+3. Seuls ces **jetons** et les réglages de configuration sont envoyés au service d'analyse ; vos
+   noms, adresses et identifiants restent sur votre poste, comme la table de correspondance.
 4. Le rapport est **re-contextualisé localement** avec vos vrais libellés.
 
 Le mécanisme est **fail-closed** : par défaut tout est tokenisé ; seule une liste de valeurs

@@ -4,17 +4,20 @@
 
 This repository contains **the entire code that runs on your own machine** when you use SYAGA
 Audit for Microsoft 365. It is public for one reason only: to let you **check for yourself**
-that none of your data is ever sent to us.
+that only tokens and the settings of your Microsoft 365 are sent to us, never your names,
+e-mail addresses or identifiers.
 
-## The principle: zero-knowledge
+**Status:** SYAGA Audit, opening soon. Offer: https://syaga.eu/fr/audit/ ; free domain check: https://syaga.eu/scan
+
+## The principle: pseudonymization on your machine
 
 1. The extension reads your Microsoft 365 tenant security configuration, **read-only**, after
    your consent on the official Microsoft screen.
 2. It **pseudonymizes on your machine**: your names, e-mail addresses and identifiers are
    replaced by tokens **before** anything is sent. The pseudonymization key is generated
    locally and never leaves your machine.
-3. Only those **tokens** are sent to the analysis service. Your real data never leaves your
-   browser.
+3. Only those **tokens** and the configuration settings are sent to the analysis service; your
+   names, e-mail addresses and identifiers stay on your machine, and so does the correspondence table.
 4. The report is **re-contextualized locally** with your real labels.
 
 The mechanism is **fail-closed**: by default everything is tokenized; only a list of **public**
